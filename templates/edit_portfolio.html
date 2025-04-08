@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Edit Portfolio{% endblock %}
+
+{% block content %}
+<h3>Edit Portfolio</h3>
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.title.label }}
+        {{ form.title(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.description.label }}
+        {{ form.description(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.image.label }}
+        {{ form.image(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+</form>
+
+<hr>
+
+<h4>Your Portfolio Items</h4>
+<ul class="list-group">
+    {% for item in portfolio_items %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+            <h5>{{ item.title }}</h5>
+            <p>{{ item.description }}</p>
+            {% if item.image_filename %}
+            <img src="{{ url_for('static', filename='images/' + item.image_filename) }}" alt="{{ item.title }}" style="max-width: 100px;">
+            {% endif %}
+        </div>
+        <form method="POST" action="{{ url_for('delete_portfolio', item_id=item.id) }}">
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
