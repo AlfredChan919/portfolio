@@ -134,7 +134,7 @@ def edit_portfolio():
         flash('Portfolio item added successfully!', 'success')
         return redirect(url_for('edit_portfolio'))
 
-    portfolio_items = PortfolioItem.query.filter_by(user_id=current_user.id).all()
+    portfolio_items = PortfolioItem.query.all()
     return render_template('edit_portfolio.html', form=form, portfolio_items=portfolio_items, user=current_user)
 
 
