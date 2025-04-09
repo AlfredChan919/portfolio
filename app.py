@@ -156,7 +156,7 @@ def delete_portfolio(item_id):
 @login_required
 def home():
     first_name = session.get("first_name", "Guest")
-    portfolio_items = PortfolioItem.query.filter_by(user_id=current_user.id).all()
+    portfolio_items = PortfolioItem.query.all()
     return render_template("index.html", user=current_user, portfolio_items=portfolio_items)
 
 
